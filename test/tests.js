@@ -1,21 +1,18 @@
-var fs = require("fs"),
-    path = require("path"),
-    assert = require("assert"),
+define(function(){var require = WILTON_requiresync;var module = {exports: {}};var exports = module.exports;
+var assert = require("assert"),
     util = require("util"),
     Parser = require("htmlparser2").Parser,
-    Handler = require("../");
+    Handler = require("domhandler/"),    
+    fs = require("wilton/fs"),
+    forEach = require("lodash/forEach");
 
-var basePath = path.resolve(__dirname, "cases"),
-    inspectOpts = { showHidden: true, depth: null };
+// todo: fixme
+var basePath = "../test/js/modules/domhandler/test/cases/";
+var list = fs.listDirectory({ path: basePath });
 
-fs
-.readdirSync(basePath)
-.filter(RegExp.prototype.test, /\.json$/) //only allow .json files
-.map(function(name){
-	return path.resolve(basePath, name);
-})
-.map(require)
-.forEach(function(test){
+forEach(list, function(path){
+        var testJson = fs.readFile({ path: basePath + path });
+        var test = JSON.parse(testJson);
 	it(test.name, function(){
 		var expected = test.expected;
 
@@ -24,8 +21,8 @@ fs
 			try {
 				compare(expected, actual);
 			} catch(e){
-				e.expected = util.inspect(expected, inspectOpts);
-				e.actual   = util.inspect(actual,   inspectOpts);
+//				e.expected = util.inspect(expected, inspectOpts);
+//				e.actual   = util.inspect(actual,   inspectOpts);
 				throw e;
 			}
 		}, test.options);
@@ -58,3 +55,5 @@ function compare(expected, result){
 		}
 	}
 }
+
+return module.exports;});
