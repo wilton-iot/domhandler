@@ -7,7 +7,7 @@ var assert = require("assert"),
     forEach = require("lodash/forEach");
 
 // todo: fixme
-var basePath = "../test/js/modules/domhandler/test/cases/";
+var basePath = "/home/alex/projects/wilton/wilton_modules/domhandler/test/cases/";
 var list = fs.listDirectory({ path: basePath });
 
 forEach(list, function(path){
