@@ -1,4 +1,6 @@
 define(function(){var require = WILTON_requiresync;var module = {exports: {}};var exports = module.exports;
+var test = require("tape-compat");
+var it = test.it;
 var assert = require("assert"),
     util = require("util"),
     Parser = require("htmlparser2").Parser,
