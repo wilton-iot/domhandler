@@ -6,10 +6,10 @@ var assert = require("assert"),
     Parser = require("htmlparser2").Parser,
     Handler = require("domhandler/"),    
     fs = require("wilton/fs"),
+    misc = require("wilton/misc"),
     forEach = require("lodash/forEach");
 
-// todo: fixme
-var basePath = WILTON_MODULES_DIRECTORY + "/domhandler/test/cases/";
+var basePath = misc.getWiltonConfig().requireJsConfig.baseUrl + "/domhandler/test/cases/";
 var list = fs.listDirectory({ path: basePath });
 
 forEach(list, function(path){
