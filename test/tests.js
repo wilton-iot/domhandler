@@ -6,7 +6,7 @@ var assert = require("assert"),
     Parser = require("htmlparser2").Parser,
     Handler = require("domhandler/"),    
     fs = require("wilton/fs"),
-    misc = require("wilton/misc"),
+    loader = require("wilton/loader"),
     forEach = require("lodash/forEach");
 
 var basePath = "domhandler/test/cases/";
@@ -41,7 +41,7 @@ var list = [
 ];
 
 forEach(list, function(path){
-        var testJson = fs.readModuleResource("domhandler/test/cases/" + path );
+        var testJson = loader.loadModuleResource("domhandler/test/cases/" + path );
         var test = JSON.parse(testJson);
 	it(test.name, function(){
 		var expected = test.expected;
