@@ -1,16 +1,14 @@
-define(function(){var require = WILTON_requiresync;var module = {exports: {}};var exports = module.exports;
+define(function(localRequire, exports, module) { var requireOrig = require; require = localRequire;
 var test = require("tape-compat");
 var it = test.it;
 var assert = require("assert"),
     util = require("util"),
     Parser = require("htmlparser2").Parser,
-    Handler = require("domhandler/"),    
-    fs = require("wilton/fs"),
-    loader = require("wilton/loader"),
+    Handler = require("domhandler"),
+//    loader = require("wilton/loader"),
     forEach = require("lodash/forEach");
 
 var basePath = "domhandler/test/cases/";
-// var list = fs.listDirectory({path: basePath});
 // explicit list for in-zip case
 var list = [
     "01-basic.json",
@@ -41,8 +39,9 @@ var list = [
 ];
 
 forEach(list, function(path){
-        var testJson = loader.loadModuleResource("domhandler/test/cases/" + path );
-        var test = JSON.parse(testJson);
+//        var testJson = loader.loadModuleResource("domhandler/test/cases/" + path );
+//        var test = JSON.parse(testJson);
+        require(["json!domhandler/test/cases/" + path], function(test) {
 	it(test.name, function(){
 		var expected = test.expected;
 
@@ -72,6 +71,7 @@ forEach(list, function(path){
 		//then parse everything
 		parser.parseComplete(data);
 	});
+        });
 });
 
 function compare(expected, result){
@@ -86,4 +86,4 @@ function compare(expected, result){
 	}
 }
 
-return module.exports;});
+require = requireOrig;});

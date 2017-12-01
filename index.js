@@ -1,4 +1,4 @@
-define(function(){var require = WILTON_requiresync;var module = {exports: {}};var exports = module.exports;
+define(function(localRequire, exports, module) { var requireOrig = require; require = localRequire;
 var ElementType = require("domelementtype");
 
 var re_whitespace = /\s+/g;
@@ -217,4 +217,4 @@ DomHandler.prototype.onprocessinginstruction = function(name, data){
 
 module.exports = DomHandler;
 
-return module.exports;});
+require = requireOrig;});
